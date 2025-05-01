@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PlayerManager3 // >>> Change to PlayerManager2 for exercise 4 <<< //
+namespace PlayerManager4 // >>> Change to PlayerManager2 for exercise 4 <<< //
 {
     /// <summary>
     /// The player listing program.
@@ -65,6 +65,12 @@ namespace PlayerManager3 // >>> Change to PlayerManager2 for exercise 4 <<< //
                         ListPlayersWithScoreGreaterThan();
                         break;
                     case "4":
+                        ListPlayersSortedByName(true);
+                        break;
+                    case "5":
+                        ListPlayersSortedByName(false);
+                        break;
+                    case "6":
                         Console.WriteLine("Bye!");
                         break;
                     default:
@@ -93,7 +99,9 @@ namespace PlayerManager3 // >>> Change to PlayerManager2 for exercise 4 <<< //
             Console.WriteLine("1. Insert Player");
             Console.WriteLine("2. List All Players");
             Console.WriteLine("3. List Players With Score Greater Than");
-            Console.WriteLine("4. Quit");
+            Console.WriteLine("4. List players by name (asc.)");
+            Console.WriteLine("5. List players by name (desc.)");
+            Console.WriteLine("6. Quit");
             Console.Write("Option: ");
         }
 
@@ -189,6 +197,22 @@ namespace PlayerManager3 // >>> Change to PlayerManager2 for exercise 4 <<< //
                     yield return player;
                 }
             }
+        }
+
+        /// <summary>
+        /// List players sorted by name.
+        /// This method uses the CompareByName class to sort the players
+        /// by name in ascending or descending order.
+        /// The CompareByName class implements the IComparer<Player> interface
+        /// and provides a custom comparison method for sorting players by name.
+        /// </summary>
+        /// <param name="ascending"></param>
+        private void ListPlayersSortedByName(bool ascending)
+        {
+            List<Player> sortedList = new List<Player>(playerList);
+            sortedList.Sort(new CompareByName(ascending));
+            Console.WriteLine($"\n--- Players By Name ({(ascending ? "ascendent" : "descendent")}) ---");
+            ListPlayers(sortedList);
         }
     }
 }
