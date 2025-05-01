@@ -1,4 +1,5 @@
 ﻿using System;
+using static AnimalKingdom.Animal;
 
 namespace AnimalKingdom
 {
