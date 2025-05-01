@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PlayerManager1 // >>> Change to PlayerManager2 for exercise 4 <<< //
+namespace PlayerManager2 // >>> Change to PlayerManager2 for exercise 4 <<< //
 {
     /// <summary>
     /// The player listing program.
@@ -89,6 +89,12 @@ namespace PlayerManager1 // >>> Change to PlayerManager2 for exercise 4 <<< //
             // /////////////////// //
             // COMPLETE ME PLEASE! //
             // /////////////////// //
+            Console.WriteLine("=== Menu ===");
+            Console.WriteLine("1. Insert Player");
+            Console.WriteLine("2. List All Players");
+            Console.WriteLine("3. List Players With Score Greater Than");
+            Console.WriteLine("4. Quit");
+            Console.Write("Option: ");
         }
 
         /// <summary>
@@ -99,6 +105,19 @@ namespace PlayerManager1 // >>> Change to PlayerManager2 for exercise 4 <<< //
             // /////////////////// //
             // COMPLETE ME PLEASE! //
             // /////////////////// //
+            Console.Write("Player Name: ");
+            string name = Console.ReadLine();
+
+            Console.Write("Player Score: ");
+            if (int.TryParse(Console.ReadLine(), out int score))
+            {
+                playerList.Add(new Player(name, score));
+                Console.WriteLine("Player added successfully!");
+            }
+            else
+            {
+                Console.WriteLine("Invalid score. Please enter a number.");
+            }
         }
 
         /// <summary>
@@ -115,6 +134,11 @@ namespace PlayerManager1 // >>> Change to PlayerManager2 for exercise 4 <<< //
             // /////////////////// //
             // COMPLETE ME PLEASE! //
             // /////////////////// //
+            Console.WriteLine("\n--- Players List ---");
+            foreach (var player in playersToList)
+            {
+                Console.WriteLine(player);
+            }
         }
 
         /// <summary>
@@ -125,6 +149,17 @@ namespace PlayerManager1 // >>> Change to PlayerManager2 for exercise 4 <<< //
             // /////////////////// //
             // COMPLETE ME PLEASE! //
             // /////////////////// //
+            Console.Write("Insert minimum score: ");
+            if (int.TryParse(Console.ReadLine(), out int minScore))
+            {
+                IEnumerable<Player> filteredPlayers = GetPlayersWithScoreGreaterThan(minScore);
+                Console.WriteLine($"\nPlayers With Score > {minScore}:");
+                ListPlayers(filteredPlayers);
+            }
+            else
+            {
+                Console.WriteLine("Invalid Value.");
+            }
         }
 
         /// <summary>
@@ -139,6 +174,13 @@ namespace PlayerManager1 // >>> Change to PlayerManager2 for exercise 4 <<< //
             // /////////////////// //
             // COMPLETE ME PLEASE! //
             // /////////////////// //
+            foreach (var player in playerList)
+            {
+                if (player.Score > minScore)
+                {
+                    yield return player;
+                }
+            }
         }
     }
 }
